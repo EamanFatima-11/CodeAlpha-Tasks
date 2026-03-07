@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Image Gallery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>✨ Eaman's Modern Image Gallery ✨</h1>
+
+<div class="buttons">
+<button onclick="filterImages('all')" class="active">All</button>
+<button onclick="filterImages('nature')">Nature</button>
+<button onclick="filterImages('animals')">Animals</button>
+<button onclick="filterImages('cities')">Cities</button>
+<button onclick="filterImages('food')">Food</button>
+</div>
+
+<div class="gallery">
+
+<!-- Nature -->
+<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" class="nature" onclick="openLightbox(0)">
+<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e" class="nature" onclick="openLightbox(1)">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" class="nature" onclick="openLightbox(2)">
+<img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2" class="nature" onclick="openLightbox(3)">
+
+<!-- Animals -->
+<img src="https://images.unsplash.com/photo-1546182990-dffeafbe841d" class="animals" onclick="openLightbox(4)">
+<img src="https://images.unsplash.com/photo-1517849845537-4d257902454a" class="animals" onclick="openLightbox(5)">
+
+
+<!-- Cities -->
+
+<img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b" class="cities" onclick="openLightbox(6)">
+<img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000" class="cities" onclick="openLightbox(7)">
+
+<!-- Food -->
+<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" class="food" onclick="openLightbox(8)">
+<img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601" class="food" onclick="openLightbox(9)">
+<img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c" class="food" onclick="openLightbox(10)">
+
+</div>
+
+<div class="lightbox" id="lightbox">
+<span class="close" onclick="closeLightbox()">&times;</span>
+<img id="lightbox-img">
+
+<div class="controls">
+<button onclick="prevImage()">⟵ Prev</button>
+<button onclick="nextImage()">Next ⟶</button>
+</div>
+</div>
+
+<script>
+
+let images = document.querySelectorAll(".gallery img");
+let currentIndex = 0;
+
+function openLightbox(index){
+currentIndex = index;
+document.getElementById("lightbox").style.display="flex";
+document.getElementById("lightbox-img").src = images[index].src;
+}
+
+function closeLightbox(){
+document.getElementById("lightbox").style.display="none";
+}
+
+function nextImage(){
+currentIndex = (currentIndex + 1) % images.length;
+document.getElementById("lightbox-img").src = images[currentIndex].src;
+}
+
+function prevImage(){
+currentIndex = (currentIndex - 1 + images.length) % images.length;
+document.getElementById("lightbox-img").src = images[currentIndex].src;
+}
+
+function filterImages(category){
+
+let buttons = document.querySelectorAll(".buttons button");
+buttons.forEach(btn => btn.classList.remove("active"));
+
+event.target.classList.add("active");
+
+images.forEach(img=>{
+if(category === "all" || img.classList.contains(category)){
+img.style.display="block";
+}else{
+img.style.display="none";
+}
+});
+}
+
+</script>
+
+</body>
+</html>
